@@ -15,7 +15,7 @@
  */
 
 // Change the directory to the Backdrop root.
-chdir('..');
+chdir(dirname(dirname($_SERVER['SCRIPT_FILENAME'])));
 
 /**
  * Defines the root directory of the Backdrop installation.

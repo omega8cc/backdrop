@@ -79,7 +79,7 @@ while ($param = array_shift($_SERVER['argv'])) {
   }
 }
 
-chdir('..');
+chdir(dirname(dirname($_SERVER['SCRIPT_FILENAME'])));
 define('BACKDROP_ROOT', getcwd());
 
 include_once BACKDROP_ROOT . '/core/includes/password.inc';
