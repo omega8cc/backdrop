@@ -2583,9 +2583,11 @@ function _backdrop_bootstrap_configuration() {
   // Redirect the user to the installation script if Backdrop has not been
   // installed yet (i.e., if no $databases array has been defined in the
   // settings.php file) and we are not already installing.
-  if (empty($GLOBALS['databases']) && !backdrop_installation_attempted()) {
-    include_once BACKDROP_ROOT . '/core/includes/install.inc';
-    install_goto('core/install.php');
+  if ($install_state['interactive']) {
+    if (empty($GLOBALS['databases']) && !backdrop_installation_attempted()) {
+      include_once BACKDROP_ROOT . '/core/includes/install.inc';
+      install_goto('core/install.php');
+    }
   }
 
   // Check that the config directory is not empty.

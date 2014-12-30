@@ -1313,8 +1313,10 @@ function backdrop_redirect_form($form_state) {
         // This function can be called from the installer, which guarantees
         // that $redirect will always be a string, so catch that case here
         // and use the appropriate redirect function.
-        $function = backdrop_installation_attempted() ? 'install_goto' : 'backdrop_goto';
-        $function($form_state['redirect']);
+        if ($install_state['interactive']) {
+          $function = backdrop_installation_attempted() ? 'install_goto' : 'backdrop_goto';
+          $function($form_state['redirect']);
+        }
       }
     }
     backdrop_goto(current_path(), array('query' => backdrop_get_query_parameters()));
