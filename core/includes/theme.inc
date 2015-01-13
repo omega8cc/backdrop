@@ -17,17 +17,17 @@
 /**
  * Mark content as read.
  */
-const MARK_READ = 0;
+define('MARK_READ', 0);
 
 /**
  * Mark content as being new.
  */
-const MARK_NEW = 1;
+define('MARK_NEW', 1);
 
 /**
  * Mark content as being updated.
  */
-const MARK_UPDATED = 2;
+define('MARK_UPDATED', 2);
 
 /**
  * A responsive table class; hide table cell on narrow devices.
@@ -35,7 +35,7 @@ const MARK_UPDATED = 2;
  * Indicates that a column has medium priority and thus can be hidden on narrow
  * width devices and shown on medium+ width devices (i.e. tablets and desktops).
  */
-const RESPONSIVE_PRIORITY_MEDIUM = 'priority-medium';
+define('RESPONSIVE_PRIORITY_MEDIUM', 'priority-medium');
 
 /**
  * A responsive table class; only show table cell on wide devices.
@@ -43,7 +43,7 @@ const RESPONSIVE_PRIORITY_MEDIUM = 'priority-medium';
  * Indicates that a column has low priority and thus can be hidden on narrow
  * and medium viewports and shown on wide devices (i.e. desktops).
  */
-const RESPONSIVE_PRIORITY_LOW = 'priority-low';
+define('RESPONSIVE_PRIORITY_LOW', 'priority-low');
 
 /**
  * @} End of "Content markers".
@@ -2513,8 +2513,8 @@ function template_preprocess_page(&$variables) {
 
   // Initialize attributes which are specific to the html and body elements.
   $variables['html_attributes'] = array();
-  $variables['html_attributes']['lang'] = $GLOBALS['language_interface']->langcode;
-  $variables['html_attributes']['dir'] = $GLOBALS['language_interface']->direction ? 'rtl' : 'ltr';
+  $variables['html_attributes']['lang'] = $GLOBALS['language']->langcode;
+  $variables['html_attributes']['dir'] = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
   $variables['body_attributes'] = array();
 
   // Add favicon.
@@ -2674,12 +2674,12 @@ function template_preprocess_maintenance_page(&$variables) {
   }
 
   // set the default language if necessary
-  $language = isset($GLOBALS['language_interface']) ? $GLOBALS['language_interface'] : language_default();
+  $language = isset($GLOBALS['language']) ? $GLOBALS['language'] : language_default();
 
   // Initialize attributes which are specific to the html element.
   $variables['html_attributes'] = array();
-  $variables['html_attributes']['lang'] = $GLOBALS['language_interface']->langcode;
-  $variables['html_attributes']['dir'] = $GLOBALS['language_interface']->direction ? 'rtl' : 'ltr';
+  $variables['html_attributes']['lang'] = $GLOBALS['language']->langcode;
+  $variables['html_attributes']['dir'] = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
 
   $variables['head_title_array']  = $head_title;
   $variables['head_title']        = implode(' | ', $head_title);

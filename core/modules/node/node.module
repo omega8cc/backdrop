@@ -11,32 +11,32 @@
 /**
  * Denotes that the node is not published.
  */
-const NODE_NOT_PUBLISHED = 0;
+define('NODE_NOT_PUBLISHED', 0);
 
 /**
  * Denotes that the node is published.
  */
-const NODE_PUBLISHED = 1;
+define('NODE_PUBLISHED', 1);
 
 /**
  * Denotes that the node is not promoted to the front page.
  */
-const NODE_NOT_PROMOTED = 0;
+define('NODE_NOT_PROMOTED', 0);
 
 /**
  * Denotes that the node is promoted to the front page.
  */
-const NODE_PROMOTED = 1;
+define('NODE_PROMOTED', 1);
 
 /**
  * Denotes that the node is not sticky at the top of the page.
  */
-const NODE_NOT_STICKY = 0;
+define('NODE_NOT_STICKY', 0);
 
 /**
  * Denotes that the node is sticky at the top of the page.
  */
-const NODE_STICKY = 1;
+define('NODE_STICKY', 1);
 
 /**
  * Denotes the time cutoff for nodes marked as read.
@@ -53,7 +53,7 @@ define('NODE_NEW_LIMIT', REQUEST_TIME - 30 * 24 * 60 * 60);
  * Modules should return this value from hook_node_access() to allow access to a
  * node.
  */
-const NODE_ACCESS_ALLOW = 'allow';
+define('NODE_ACCESS_ALLOW', 'allow');
 
 /**
  * Denotes that access is denied for a node.
@@ -61,7 +61,7 @@ const NODE_ACCESS_ALLOW = 'allow';
  * Modules should return this value from hook_node_access() to deny access to a
  * node.
  */
-const NODE_ACCESS_DENY = 'deny';
+define('NODE_ACCESS_DENY', 'deny');
 
 /**
  * Denotes that access is unaffected for a node.
@@ -69,7 +69,7 @@ const NODE_ACCESS_DENY = 'deny';
  * Modules should return this value from hook_node_access() to indicate no
  * effect on node access.
  */
-const NODE_ACCESS_IGNORE = NULL;
+define('NODE_ACCESS_IGNORE', NULL);
 
 /**
  * Implements hook_theme().
@@ -641,7 +641,7 @@ function node_type_update_nodes($old_type, $type) {
  *   type object by $type->disabled being set to TRUE.
  */
 function _node_types_build() {
-  $cid = 'node_types:' . $GLOBALS['language_interface']->langcode;
+  $cid = 'node_types:' . $GLOBALS['language']->langcode;
 
   $_node_types = &backdrop_static(__FUNCTION__);
   if (isset($_node_types)) {
@@ -799,8 +799,6 @@ function node_invoke($node, $hook, $a2 = NULL, $a3 = NULL, $a4 = NULL) {
  *
  * @return
  *   An array of node objects indexed by nid.
- *
- * @todo Remove $conditions in Drupal 8.
  *
  * @see entity_load()
  * @see EntityFieldQuery
@@ -2893,15 +2891,12 @@ function node_query_entity_field_access_alter(QueryAlterableInterface $query) {
  * @endcode
  *
  * Queries tagged with 'node_access' that are not against the {node} table
- * should add the base table as metadata. For example:
+ * must add the base table as metadata. For example:
  * @code
  *   $query
  *     ->addTag('node_access')
  *     ->addMetaData('base_table', 'taxonomy_index');
  * @endcode
- * If the query is not against the {node} table, an attempt is made to guess
- * the table, but is not recommended to rely on this as it is deprecated and not
- * allowed in Drupal 8. It is always safer to provide the table.
  *
  * @param $query
  *   The query to add conditions to.

@@ -8,22 +8,22 @@
 /**
  * The current system version.
  */
-const BACKDROP_VERSION = '1.0-dev';
+define('BACKDROP_VERSION', '1.0-dev');
 
 /**
  * Core API compatibility.
  */
-const BACKDROP_CORE_COMPATIBILITY = '1.x';
+define('BACKDROP_CORE_COMPATIBILITY', '1.x');
 
 /**
  * Minimum supported version of PHP.
  */
-const BACKDROP_MINIMUM_PHP = '5.3.2';
+define('BACKDROP_MINIMUM_PHP', '5.3.2');
 
 /**
  * Minimum recommended value of PHP memory_limit.
  */
-const BACKDROP_MINIMUM_PHP_MEMORY_LIMIT = '32M';
+define('BACKDROP_MINIMUM_PHP_MEMORY_LIMIT', '32M');
 
 /**
  * Error reporting level: display no errors.
@@ -45,12 +45,12 @@ define('ERROR_REPORTING_DISPLAY_ALL', 'all');
  *
  * The item may be removed using cache()->delete() with a cache ID.
  */
-const CACHE_PERMANENT = 0;
+define('CACHE_PERMANENT', 0);
 
 /**
  * Indicates that the item should be removed at the next general cache wipe.
  */
-const CACHE_TEMPORARY = -1;
+define('CACHE_TEMPORARY', -1);
 
 /**
  * @defgroup logging_severity_levels Logging severity levels
@@ -75,42 +75,42 @@ const CACHE_TEMPORARY = -1;
 /**
  * Log message severity -- Emergency: system is unusable.
  */
-const WATCHDOG_EMERGENCY = 0;
+define('WATCHDOG_EMERGENCY', 0);
 
 /**
  * Log message severity -- Alert: action must be taken immediately.
  */
-const WATCHDOG_ALERT = 1;
+define('WATCHDOG_ALERT', 1);
 
 /**
  * Log message severity -- Critical conditions.
  */
-const WATCHDOG_CRITICAL = 2;
+define('WATCHDOG_CRITICAL', 2);
 
 /**
  * Log message severity -- Error conditions.
  */
-const WATCHDOG_ERROR = 3;
+define('WATCHDOG_ERROR', 3);
 
 /**
  * Log message severity -- Warning conditions.
  */
-const WATCHDOG_WARNING = 4;
+define('WATCHDOG_WARNING', 4);
 
 /**
  * Log message severity -- Normal but significant conditions.
  */
-const WATCHDOG_NOTICE = 5;
+define('WATCHDOG_NOTICE', 5);
 
 /**
  * Log message severity -- Informational messages.
  */
-const WATCHDOG_INFO = 6;
+define('WATCHDOG_INFO', 6);
 
 /**
  * Log message severity -- Debug-level messages.
  */
-const WATCHDOG_DEBUG = 7;
+define('WATCHDOG_DEBUG', 7);
 
 /**
  * @} End of "defgroup logging_severity_levels".
@@ -119,98 +119,98 @@ const WATCHDOG_DEBUG = 7;
 /**
  * First bootstrap phase: initialize configuration.
  */
-const BACKDROP_BOOTSTRAP_CONFIGURATION = 0;
+define('BACKDROP_BOOTSTRAP_CONFIGURATION', 0);
 
 /**
  * Second bootstrap phase: try to serve a cached page.
  */
-const BACKDROP_BOOTSTRAP_PAGE_CACHE = 1;
+define('BACKDROP_BOOTSTRAP_PAGE_CACHE', 1);
 
 /**
  * Third bootstrap phase: initialize database layer.
  */
-const BACKDROP_BOOTSTRAP_DATABASE = 2;
+define('BACKDROP_BOOTSTRAP_DATABASE', 2);
 
 /**
  * Fourth bootstrap phase: initialize the variable system.
  */
-const BACKDROP_BOOTSTRAP_VARIABLES = 3;
+define('BACKDROP_BOOTSTRAP_VARIABLES', 3);
 
 /**
  * Fifth bootstrap phase: initialize session handling.
  */
-const BACKDROP_BOOTSTRAP_SESSION = 4;
+define('BACKDROP_BOOTSTRAP_SESSION', 4);
 
 /**
  * Sixth bootstrap phase: set up the page header.
  */
-const BACKDROP_BOOTSTRAP_PAGE_HEADER = 5;
+define('BACKDROP_BOOTSTRAP_PAGE_HEADER', 5);
 
 /**
  * Seventh bootstrap phase: find out language of the page.
  */
-const BACKDROP_BOOTSTRAP_LANGUAGE = 6;
+define('BACKDROP_BOOTSTRAP_LANGUAGE', 6);
 
 /**
  * Final bootstrap phase: Backdrop is fully loaded; validate and fix input data.
  */
-const BACKDROP_BOOTSTRAP_FULL = 7;
+define('BACKDROP_BOOTSTRAP_FULL', 7);
 
 /**
  * Role ID for anonymous users.
  */
-const BACKDROP_ANONYMOUS_ROLE = 'anonymous';
+define('BACKDROP_ANONYMOUS_ROLE', 'anonymous');
 
 /**
  * Role ID for authenticated users.
  */
-const BACKDROP_AUTHENTICATED_ROLE = 'authenticated';
+define('BACKDROP_AUTHENTICATED_ROLE', 'authenticated');
 
 /**
  * The number of bytes in a kilobyte.
  *
  * For more information, visit http://en.wikipedia.org/wiki/Kilobyte.
  */
-const BACKDROP_KILOBYTE = 1024;
+define('BACKDROP_KILOBYTE', 1024);
 
 /**
  * System language (only applicable to UI).
  *
  * Refers to the language used in Backdrop and module/theme source code.
  */
-const LANGUAGE_SYSTEM = 'system';
+define('LANGUAGE_SYSTEM', 'system');
 
 /**
  * The language code used when no language is explicitly assigned.
  *
  * Defined by ISO639-2 for "Undetermined".
  */
-const LANGUAGE_NONE = 'und';
+define('LANGUAGE_NONE', 'und');
 
 /**
  * The type of language used to define the content language.
  */
-const LANGUAGE_TYPE_CONTENT = 'language_content';
+define('LANGUAGE_TYPE_CONTENT', 'language_content');
 
 /**
  * The type of language used to select the user interface.
  */
-const LANGUAGE_TYPE_INTERFACE = 'language_interface';
+define('LANGUAGE_TYPE_INTERFACE', 'language');
 
 /**
  * The type of language used for URLs.
  */
-const LANGUAGE_TYPE_URL = 'language_url';
+define('LANGUAGE_TYPE_URL', 'language_url');
 
 /**
  * Language written left to right. Possible value of $language->direction.
  */
-const LANGUAGE_LTR = 0;
+define('LANGUAGE_LTR', 0);
 
 /**
  * Language written right to left. Possible value of $language->direction.
  */
-const LANGUAGE_RTL = 1;
+define('LANGUAGE_RTL', 1);
 
 /**
  * Time of the current request in seconds elapsed since the Unix Epoch.
@@ -229,21 +229,21 @@ define('REQUEST_TIME', (int) $_SERVER['REQUEST_TIME']);
   *
   * @see backdrop_set_title()
  */
-const CHECK_PLAIN = 0;
+define('CHECK_PLAIN', 0);
 
 /**
   * Flag used to indicate that text has already been sanitized.
   *
   * @see backdrop_set_title()
  */
-const PASS_THROUGH = -1;
+define('PASS_THROUGH', -1);
 
 /**
  * Regular expression to match PHP function names.
  *
  * @see http://php.net/manual/language.functions.php
  */
-const BACKDROP_PHP_FUNCTION_PATTERN = '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*';
+define('BACKDROP_PHP_FUNCTION_PATTERN', '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*');
 
 /**
  * Provides a caching wrapper to be used in place of large array structures.
@@ -1704,7 +1704,7 @@ function backdrop_unpack($obj, $field = 'data') {
  * @ingroup sanitization
  */
 function t($string, array $args = array(), array $options = array()) {
-  global $language_interface;
+  global $language;
 
   // Use the advanced backdrop_static() pattern, since this is called very often.
   static $backdrop_static_fast;
@@ -1716,7 +1716,7 @@ function t($string, array $args = array(), array $options = array()) {
 
   // Merge in default.
   if (empty($options['langcode'])) {
-    $options['langcode'] = isset($language_interface->langcode) ? $language_interface->langcode : LANGUAGE_SYSTEM;
+    $options['langcode'] = isset($language->langcode) ? $language->langcode : LANGUAGE_SYSTEM;
   }
   if (empty($options['context'])) {
     $options['context'] = '';
@@ -2397,7 +2397,7 @@ function backdrop_anonymous_user() {
  *   backdrop_bootstrap(BACKDROP_BOOTSTRAP_FULL);
  * @endcode
  *
- * @param $phase
+ * @param int $phase
  *   A constant telling which phase to bootstrap to. When you bootstrap to a
  *   particular phase, all earlier phases are run automatically. Possible
  *   values:
@@ -2410,11 +2410,11 @@ function backdrop_anonymous_user() {
  *   - BACKDROP_BOOTSTRAP_LANGUAGE: Finds out the language of the page.
  *   - BACKDROP_BOOTSTRAP_FULL: Fully loads Backdrop. Validates and fixes input
  *     data.
- * @param $new_phase
+ * @param boolean $new_phase
  *   A boolean, set to FALSE if calling backdrop_bootstrap from inside a
  *   function called from backdrop_bootstrap (recursion).
  *
- * @return
+ * @return int
  *   The most recently completed phase.
  */
 function backdrop_bootstrap($phase = NULL, $new_phase = TRUE) {
@@ -2436,12 +2436,13 @@ function backdrop_bootstrap($phase = NULL, $new_phase = TRUE) {
   // bootstrap state.
   static $stored_phase = -1;
 
-  // When not recursing, store the phase name so it's not forgotten while
-  // recursing.
-  if ($new_phase) {
-    $final_phase = $phase;
-  }
   if (isset($phase)) {
+    // When not recursing, store the phase name so it's not forgotten while
+    // recursing but take care of not going backwards.
+    if ($new_phase && $phase >= $stored_phase) {
+      $final_phase = $phase;
+    }
+
     // Call a phase if it has not been called before and is below the requested
     // phase.
     while ($phases && $phase > $stored_phase && $final_phase > $stored_phase) {
@@ -2744,7 +2745,7 @@ function _backdrop_bootstrap_page_header() {
  * @see backdrop_bootstrap()
  */
 function backdrop_get_bootstrap_phase() {
-  return backdrop_bootstrap();
+  return backdrop_bootstrap(NULL, FALSE);
 }
 
 /**
@@ -3501,11 +3502,9 @@ function backdrop_autoload($class) {
  * @param $default_value
  *   Optional default value.
  * @param $reset
- *   TRUE to reset a specific named variable, or all variables if $name is NULL.
- *   Resetting every variable should only be used, for example, for running
- *   unit tests with a clean environment. Should be used only though via
- *   function backdrop_static_reset() and the return value should not be used in
- *   this case.
+ *   TRUE to reset one or all variables(s). This parameter is only used
+ *   internally and shouldn't be passed in; use backdrop_static_reset() instead.
+ *   (This function's return value should not be used when TRUE is passed in.)
  *
  * @return
  *   Returns a variable by reference.
@@ -3550,6 +3549,8 @@ function &backdrop_static($name, $default_value = NULL, $reset = FALSE) {
  *
  * @param $name
  *   Name of the static variable to reset. Omit to reset all variables.
+ *   Resetting all variables should only be used, for example, for running unit
+ *   tests with a clean environment.
  */
 function backdrop_static_reset($name = NULL) {
   backdrop_static($name, NULL, TRUE);
