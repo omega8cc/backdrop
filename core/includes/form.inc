@@ -914,7 +914,7 @@ function backdrop_process_form($form_id, &$form, &$form_state) {
       // We'll clear out the cached copies of the form and its stored data
       // here, as we've finished with them. The in-memory copies are still
       // here, though.
-      if (!config_get('system.core', 'cache') && !empty($form_state['values']['form_build_id'])) {
+      if (empty($form_state['no_cache']) && !empty($form_state['values']['form_build_id']) && !config_get('system.core', 'cache')) {
         tempstore_clear('form', $form_state['values']['form_build_id']);
         tempstore_clear('form_state', $form_state['values']['form_build_id']);
       }
@@ -2896,14 +2896,14 @@ function theme_radio($variables) {
 function form_process_password_confirm($element) {
   $element['pass1'] =  array(
     '#type' => 'password',
-    '#title' => t('Password'),
+    '#title' => t('New password'),
     '#value' => empty($element['#value']) ? NULL : $element['#value']['pass1'],
     '#required' => $element['#required'],
     '#attributes' => array('class' => array('password-field')),
   );
   $element['pass2'] =  array(
     '#type' => 'password',
-    '#title' => t('Confirm password'),
+    '#title' => t('Confirm new password'),
     '#value' => empty($element['#value']) ? NULL : $element['#value']['pass2'],
     '#required' => $element['#required'],
     '#attributes' => array('class' => array('password-confirm')),
@@ -3286,6 +3286,8 @@ function form_process_container($element, &$form_state) {
  */
 function theme_container($variables) {
   $element = $variables['element'];
+  // Ensure #attributes is set.
+  $element += array('#attributes' => array());
 
   // Special handling for form elements.
   if (isset($element['#array_parents'])) {
@@ -3730,8 +3732,7 @@ function form_process_vertical_tabs($element, &$form_state) {
 
   // The JavaScript stores the currently selected tab in this hidden
   // field so that the active tab can be restored the next time the
-  // form is rendered, e.g. on preview pages or when form validation
-  // fails.
+  // form is rendered, e.g. when form validation fails.
   $name = implode('__', $element['#parents']);
   if (isset($form_state['values'][$name . '__active_tab'])) {
     $element['#default_tab'] = $form_state['values'][$name . '__active_tab'];

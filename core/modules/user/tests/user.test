@@ -1034,6 +1034,17 @@ class UserPictureTestCase extends BackdropWebTestCase {
 
       $pic_path2 = $this->saveUserPicture($image);
       $this->assertNotEqual($pic_path, $pic_path2, 'Filename of second picture is different.');
+
+      // Check if user picture has a valid file ID after saving the user.
+      $account = user_load($this->user->uid, TRUE);
+      $this->assertTrue(is_object($account->picture), 'User picture object is valid after user load.');
+      $this->assertNotNull($account->picture->fid, 'User picture object has a FID after user load.');
+      $this->assertTrue(is_file($account->picture->uri), 'File is located in proper directory after user load.');
+      user_save($account);
+      // Verify that the user save does not destroy the user picture object.
+      $this->assertTrue(is_object($account->picture), 'User picture object is valid after user save.');
+      $this->assertNotNull($account->picture->fid, 'User picture object has a FID after user save.');
+      $this->assertTrue(is_file($account->picture->uri), 'File is located in proper directory after user save.');
     }
   }
 
@@ -1190,7 +1201,7 @@ class UserPermissionsTestCase extends BackdropWebTestCase {
     // Enable book module and ensure the 'administer book outlines' permission
     // is assigned by default.
     $edit = array();
-    $edit['modules[Core][book][enable]'] = TRUE;
+    $edit['modules[System][book][enable]'] = TRUE;
     $this->backdropPost('admin/modules', $edit, t('Save configuration'));
     backdrop_static_reset('user_roles');
     $this->assertTrue(user_access('administer book outlines', $this->admin_user), 'The permission was automatically assigned to the administrator role');
@@ -1911,9 +1922,9 @@ class UserRoleAdminTestCase extends BackdropWebTestCase {
 
     // Make sure that the system-defined roles can still be edited, to adjust
     // their labels.
-    $this->backdropGet('admin/config/people/roles/edit/' . DRUPAL_ANONYMOUS_RID);
+    $this->backdropGet('admin/config/people/roles/edit/' . BACKDROP_ANONYMOUS_ROLE);
     $this->assertResponse(200, 'Access granted when trying to edit the built-in anonymous role.');
-    $this->backdropGet('admin/config/people/roles/edit/' . DRUPAL_AUTHENTICATED_RID);
+    $this->backdropGet('admin/config/people/roles/edit/' . BACKDROP_AUTHENTICATED_ROLE);
     $this->assertResponse(200, 'Access granted when trying to edit the built-in authenticated role.');
   }
 

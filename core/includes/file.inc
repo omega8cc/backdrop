@@ -254,7 +254,14 @@ function file_uri_target($uri) {
  *   'public', 'private' or any other file scheme defined as the default.
  */
 function file_default_scheme() {
-  return config_get('system.core', 'file_default_scheme');
+  try {
+    $scheme = config_get('system.core', 'file_default_scheme');
+  }
+  catch (ConfigException $e) {}
+  if (empty($scheme)) {
+    $scheme = 'public';
+  }
+  return $scheme;
 }
 
 /**
@@ -1134,7 +1141,7 @@ function file_munge_filename($filename, $extensions, $alerts = TRUE) {
     // Remove any null bytes. See http://php.net/manual/security.filesystem.nullbytes.php
     $filename = str_replace(chr(0), '', $filename);
 
-    $whitelist = array_unique(explode(' ', trim($extensions)));
+    $whitelist = array_unique(explode(' ', strtolower(trim($extensions))));
 
     // Split the filename up by periods. The first part becomes the basename
     // the last part the final extension.
@@ -1147,7 +1154,7 @@ function file_munge_filename($filename, $extensions, $alerts = TRUE) {
     // of allowed extensions.
     foreach ($filename_parts as $filename_part) {
       $new_filename .= '.' . $filename_part;
-      if (!in_array($filename_part, $whitelist) && preg_match("/^[a-zA-Z]{2,5}\d?$/", $filename_part)) {
+      if (!in_array(strtolower($filename_part), $whitelist) && preg_match("/^[a-zA-Z]{2,5}\d?$/", $filename_part)) {
         $new_filename .= '_';
       }
     }
@@ -1381,7 +1388,7 @@ function file_space_used($uid = NULL, $status = FILE_STATUS_PERMANENT) {
  *   at all).
  * @param $destination
  *   A string containing the URI that the file should be copied to. This must
- *   be a stream wrapper URI. If this value is omitted, Drupal's temporary
+ *   be a stream wrapper URI. If this value is omitted, Backdrop's temporary
  *   files scheme will be used ("temporary://").
  * @param $replace
  *   Replace behavior when the destination file already exists:
@@ -2483,8 +2490,6 @@ function file_directory_temp() {
       // everything to use slash which is supported on all platforms.
       $temporary_directory = str_replace('\\', '/', $temporary_directory);
     }
-    // Save the path of the discovered directory.
-    config_set('system.core', 'file_temporary_path', $temporary_directory);
   }
 
   return $temporary_directory;
