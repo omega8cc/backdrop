@@ -428,41 +428,25 @@ function views_ui_add_form($form, &$form_state) {
   $wizard_instance = $get_instance($wizard_plugins[$wizard_key]);
   $form = $wizard_instance->build_form($form, $form_state);
 
-  $form['save'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save & exit'),
-    '#validate' => array('views_ui_wizard_form_validate'),
-    '#submit' => array('views_ui_add_form_save_submit'),
-  );
-  $form['continue'] = array(
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['continue'] = array(
     '#type' => 'submit',
     '#value' => t('Continue & edit'),
     '#validate' => array('views_ui_wizard_form_validate'),
     '#submit' => array('views_ui_add_form_store_edit_submit'),
     '#process' => array_merge(array('views_ui_default_button'), element_info_property('submit', '#process', array())),
   );
-  $form['cancel'] = array(
+  $form['actions']['save'] = array(
     '#type' => 'submit',
-    '#value' => t('Cancel'),
-    '#submit' => array('views_ui_add_form_cancel_submit'),
-    '#limit_validation_errors' => array(),
+    '#value' => t('Save & exit'),
+    '#validate' => array('views_ui_wizard_form_validate'),
+    '#submit' => array('views_ui_add_form_save_submit'),
+  );
+  $form['actions']['cancel'] = array(
+    '#markup' => l(t('Cancel'), 'admin/structure/views'),
   );
 
   return $form;
-}
-
-/**
- * Helper form element validator: integer.
- *
- * The problem with this is that the function is private so it's not guaranteed
- * that it might not be renamed/changed. In the future field.module or something else
- * should provide a public validate function.
- */
-function views_element_validate_integer($element, &$form_state) {
-  $value = $element['#value'];
-  if ($value !== '' && (!is_numeric($value) || intval($value) != $value || abs($value) != $value)) {
-    form_error($element, t('%name must be a positive integer.', array('%name' => $element['#title'])));
-  }
 }
 
 /**
@@ -872,10 +856,6 @@ function views_ui_break_lock_confirm($form, &$form_state, $view) {
   }
 
   $cancel = 'admin/structure/views/view/' . $view->name . '/edit';
-  if (!empty($_REQUEST['cancel'])) {
-    $cancel = $_REQUEST['cancel'];
-  }
-
   $account = user_load($view->locked->uid);
   return confirm_form($form,
                   t('Are you sure you want to break the lock on view %name?',

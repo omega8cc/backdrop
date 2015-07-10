@@ -1500,6 +1500,10 @@ class NodeAdminTestCase extends BackdropWebTestCase {
    * @see TaxonomyNodeFilterTestCase
    */
   function testContentAdminPages() {
+    // Do not use any patterns for nodes in this test.
+    config_set('path.settings', 'node_pattern', '');
+    config_set('path.settings', 'node_page_pattern', '');
+
     $this->backdropLogin($this->admin_user);
 
     $nodes['published_page'] = $this->backdropCreateNode(array('type' => 'page'));
@@ -1768,9 +1772,9 @@ class NodeBlockFunctionalTest extends BackdropWebTestCase {
     $this->backdropPost('admin/structure/layouts/add', $edit, t('Create layout'));
 
     // Add a condition to specify only the article type should have this layout.
-    $this->backdropPost('admin/structure/layouts/manage/article_layout/settings', array(), t('Add condition'));
-    $this->backdropPost(NULL, array('condition' => 'node_type'), t('Add condition'));
-    $this->backdropPost(NULL, array('bundles[article]' => 1), t('Add condition'));
+    $this->backdropPost('admin/structure/layouts/manage/article_layout/settings', array(), t('Add visibility condition'));
+    $this->backdropPost(NULL, array('condition' => 'node_type'), t('Add visibility condition'));
+    $this->backdropPost(NULL, array('bundles[article]' => 1), t('Add visibility condition'));
     $this->backdropPost(NULL, array(), t('Save layout'));
 
     // Add the custom block to the layout.
